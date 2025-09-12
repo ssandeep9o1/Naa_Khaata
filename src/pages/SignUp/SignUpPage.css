@@ -33,8 +33,8 @@
   margin-top: 40px; letter-spacing: 4px; background: none; border: none; cursor: pointer;
 }
 .login-box button:hover {
-  background: #fbfbfb; color: #fff; border-radius: 5px;
-  box-shadow: 0 0 5px #ffffff, 0 0 25px #ffffff, 0 0 50px #ffffff, 0 0 100px #ffffff;
+  background: #000000; color: #fff; border-radius: 5px;
+  box-shadow: 0 0 0px #ffffff, 0 0 0px #ffffff, 0 0 0px #ffffff, 0 0 0px #ffffff;
 }
 .login-box button span { position: absolute; display: block; }
 
