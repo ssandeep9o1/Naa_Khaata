@@ -1,0 +1,20 @@
+/* src/pages/ChillarKhata/ChillarKhataPage.css */
+.chillar-khata-container {
+  padding: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.add-entry-form {
+  padding: 24px;
+  margin-bottom: 32px;
+  background-color: var(--card-background);
+  border-radius: 30px;
+  box-shadow: 0 4px 12px var(--card-shadow);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+

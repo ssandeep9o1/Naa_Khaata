@@ -1,0 +1,184 @@
+/* Container for both title and tagline */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* `gap` provides clean spacing between title and tagline */
+  gap: 1rem;
+  /* `padding` creates the large space at the top and a smaller gap below */
+  padding: 6rem 0 4rem 0;
+}
+
+/* Main title styling */
+.main-title {
+  font-family: "Ponnala", system-ui;
+  font-size: 10rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0;
+  line-height: 1;
+}
+
+/* Tagline styling */
+.tagline {
+  font-family: "Noto Sans Telugu", sans-serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  padding: 0.75rem 2rem;
+  margin-top: 0rem;
+  white-space: nowrap;
+  width: 340px;
+  height: 50px;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  background: var(--card-background);
+  box-shadow: 15px 15px 30px #bebebe, -15px -15px 30px #ffffff;
+}
+
+.summary-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 2.5rem auto;
+  padding: 0 1rem;
+}
+
+.statt-card {
+  width: 190px;
+  height: 80px;
+  background-color: var(--card-background);
+  border-radius: 16px;
+  padding: 1.5rem 1rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stat-label {
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  width: 100%;
+  text-align: center;
+  display: block;
+  font-size: 2.0rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+/* ---Customers Section --- */
+.section-title {
+  text-align: center;
+  font-size: 2.0rem;
+  font-weight: 600;
+  color: var(--text);
+  /* Consistent margins for section titles */
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  font-family: "Noto Sans Telugu", sans-serif;
+}
+
+.customer-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* The `gap` property creates perfect, even spacing between all cards */
+  gap: 2rem;
+  padding: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Customer Card --- */
+.card {
+  box-sizing: border-box;
+  width: 190px;
+  height: auto;
+  padding: 1.5rem 1rem;
+  background: rgb(255, 255, 255);
+  border: 1px solid white;
+  box-shadow: 12px 17px 51px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(6px);
+  border-radius: 17px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  user-select: none;
+  font-weight: bolder;
+  color: black;
+}
+
+.card:hover {
+  border: 1px solid black;
+  transform: scale(1.05);
+}
+
+.card:active {
+  transform: scale(0.95);
+}
+
+/* Content inside the card */
+.customer-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 0.5rem 0;
+}
+
+.customer-info {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: hsl(0, 0%, 0%);
+  margin: 0.1rem 0;
+}
+
+.customer-due {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #c0392b; /* A red color for due amount */
+  margin-top: 0.75rem;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .main-title {
+    font-size: 5rem;
+  }
+
+  .tagline {
+    font-size: 1.25rem;
+    width: auto;
+    max-width: 90%;
+    white-space: normal;
+    height: auto;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    box-shadow: var(--card-shadow);
+  }
+  .statt-card {
+    width: 120px;
+    height: 100px;
+    padding: 0.5rem 0.75rem;
+  }
+}

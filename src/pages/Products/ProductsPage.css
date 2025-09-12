@@ -1,0 +1,154 @@
+/* --- Main Page Container --- */
+.products-page-container {
+  width: 100%;
+  max-width: 500px; /* Reduced Size */
+  margin: 40px auto;
+  padding: 30px 40px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.products-page-title {
+  text-align: center;
+  margin-bottom: 30px !important; /* Override MUI */
+  font-weight: 700 !important;
+  color: #333;
+}
+
+/* --- Accordion Styles --- */
+.category-accordion {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px !important; /* Override MUI */
+  box-shadow: none !important; /* Override MUI */
+  margin-bottom: 16px !important; /* Override MUI */
+}
+
+.category-accordion::before {
+  display: none; /* Removes the default top border */
+}
+
+.category-accordion .MuiAccordionSummary-root {
+  border-radius: 12px;
+  transition: background-color 0.2s ease;
+}
+
+.category-accordion .MuiAccordionSummary-root:hover {
+  background-color: #f9f9f9;
+}
+
+.category-accordion .MuiAccordionDetails-root {
+  padding: 8px 16px 16px;
+}
+
+/* --- Product List Styles --- */
+.product-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.product-list li:last-child .product-list-item {
+  border-bottom: none;
+}
+
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.product-index {
+  font-weight: 500;
+  color: #888;
+  min-width: 2ch;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.product-details {
+  font-size: 0.9em;
+  color: #777;
+}
+
+/* Re-using delete button style from other pages */
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+.delete-button svg {
+  width: 20px;
+  height: 20px;
+  fill: #888;
+  transition: fill 0.2s ease, transform 0.2s ease;
+}
+.delete-button:hover svg {
+  fill: #d32f2f;
+  transform: scale(1.1);
+}
+
+
+/* --- Floating Action Button (FAB) --- */
+.fab-add-product {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 1000;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.fab-add-product:hover {
+  background-color: #555;
+  transform: scale(1.05);
+}
+
+.fab-add-product svg {
+  width: 28px;
+  height: 28px;
+} 
+
+/* --- Edit Button Styles --- */
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 8px;
+}
+
+@media (max-width: 600px) {
+  .products-page-container {
+    width: 85%;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+  .fab-add-product {
+    width: 50px;
+    height: 50px;
+    bottom: 20px;
+    right: 20px;
+  }
+}

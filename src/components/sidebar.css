@@ -1,0 +1,213 @@
+/* --- Main Drawer Style --- */
+/* Targets the paper element inside the MUI Drawer */
+.MuiDrawer-paper {
+  border-right: none !important; /* Remove the border for a cleaner, floating look */
+  box-shadow: 0 0 40px rgba(0,0,0,1);
+  background-color: #000; /* Add a soft shadow for depth */
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+/* --- List Item Styling --- */
+.MuiList-root {
+  padding: 0px !important; /* Remove default padding */
+  margin: 0px !important; /* Remove default margin */
+  width: 110%; /* Ensure full width */
+  background-color: transparent !important; /* Transparent background for the list */
+}
+.MuiListItem-root {
+  padding: 4px 16px !important; /* Tweak padding for the items */
+}
+
+.MuiListItemButton-root {
+  background-color: #39393a !important; /* Dark background for list items */
+  color: #ffff !important; /* White text for contrast */
+  font-family: 'Roboto', sans-serif !important; /* Use Roboto font */
+  font-weight: 500 !important;
+  font-size: 0.9rem !important;
+  padding: 8px 18px !important; /* Adjust padding for better spacing */
+  margin: 4px 0 !important; /* Add margin for spacing between items */
+  border: none !important; /* Remove default border */
+  box-shadow: none !important; /* Remove default shadow */
+  border-radius: 14px !important;
+  transition: background-color 0.2s ease-in-out !important;
+}
+
+/* Hover effect for list items */
+.MuiListItemButton-root:hover {
+  background-color: #39393ac7 !important;
+  transform: translateX(0px);
+}
+
+/* Style for the active menu item */
+.MuiListItemButton-root.active {
+  background-color: #ffffff !important; /* Highlight active item with a different color */
+  color: #000000 !important; /* Ensure text is readable on the new background */
+}
+
+.MuiListItemButton-root.active .MuiListItemIcon-root,
+.MuiListItemButton-root.active .MuiListItemText-primary {
+  color: #000 !important; /* Make sure icon and text color match the active state */
+}
+
+/* Icon styling */
+.MuiListItemIcon-root {
+  min-width: 40px !important; /* Adjust icon spacing */
+  color: #ffff !important;
+  opacity: 0.8 !important; /* Slightly faded icons */
+  transition: color 0.2s ease-in-out !important; /* Smooth color transition */
+}
+
+/* Text styling */
+.MuiListItemText-primary {
+  font-weight: 500 !important;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem !important;
+  transition: color 0.2s ease-in-out !important; /* Smooth color transition */
+}
+
+/* --- Custom Scrollbar --- */
+.MuiDrawer-paper::-webkit-scrollbar {
+  width: 2px;
+  display: none; /* Hide the vertical scrollbar but keep it scrollable */
+}
+.MuiDrawer-paper::-webkit-scrollbar-track {
+  background: transparent;
+}
+.MuiDrawer-paper::-webkit-scrollbar-thumb {
+  background-color: #000;
+  border-radius: 10px;
+}
+.MuiDrawer-paper::-webkit-scrollbar-thumb:hover {
+  background-color: #000;
+}
+/* Hide the vertical scrollbar but keep it scrollable */
+.MuiDrawer-paper::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* --- Logout Button --- */
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(0, 0, 0);
+}
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 15px;
+}
+
+.sign svg path {
+  fill: rgb(255, 255, 255);
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+/* hover effect on button width */
+.Btn:hover {
+  background-color: black;
+  width: 130px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover .sign {
+  width: 15%;
+  transition-duration: 0.4s;
+  padding-left: 15px;
+}
+
+.Btn:hover .sign svg path {
+  fill: white;
+}
+
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.4s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px, 2px);
+}
+
+/* SideBar button */
+
+.setting-btn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: rgb(108, 90, 190);
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 0px 0px 2px rgb(212, 209, 255);
+}
+.bar {
+  width: 70%;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 2px;
+}
+.bar::before {
+  content: "";
+  width: 2px;
+  height: 2px;
+  background-color: rgb(126, 117, 255);
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid white;
+  transition: all 0.3s;
+  box-shadow: 0px 0px 5px white;
+}
+.bar1::before {
+  transform: translateX(-4px);
+}
+.bar2::before {
+  transform: translateX(4px);
+}
+
+.setting-btn:hover .bar1::before {
+  transform: translateX(4px);
+}
+.setting-btn:hover .bar2::before {
+  transform: translateX(-4px);
+}
