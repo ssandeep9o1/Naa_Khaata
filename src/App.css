@@ -31,7 +31,7 @@ body {
   background-color: var(--background);
   color: var(--text);
   overflow-x: hidden;
-  min-height: 100vh; /* Ensures the gradient covers the full viewport height */
+  min-height: 100vh;
   background-color: #ffffff;
   background-image:
     repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.1) 0, rgba(0, 0, 0, 0.1) 1px, transparent 1px, transparent 20px),
@@ -53,14 +53,10 @@ body {
 @media (max-width: 600px) {
 
   .app-content-wrapper {
-    width: 95%;
-    padding-left: 0px; 
-    padding-right: 0px;
+    width: 100%;
   }
 
   body {
     font-size: 14px;
-    padding: 0px;
-    margin: 0;
   }
 }
