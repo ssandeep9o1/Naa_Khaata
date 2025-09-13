@@ -122,7 +122,7 @@ const TransactionPage: React.FC = () => {
       if (updatedCustomer) {
         setCustomer(updatedCustomer);
         setTransactions([...transactions, newTransaction]);
-        sendWhatsAppConfirmation(updatedCustomer, newTransaction, updatedCustomer.due_amount);
+        'sendWhatsAppConfirmation(updatedCustomer, newTransaction, updatedCustomer.due_amount); #To send messages to customer on adding a transaction'
 
       } else {
         setTransactions([...transactions, newTransaction]);
