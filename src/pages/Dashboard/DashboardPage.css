@@ -86,7 +86,7 @@
   font-size: 2.0rem;
   font-weight: 600;
   color: var(--text);
-  margin-top: 3rem;
+  margin-top: 4rem;
   margin-bottom: 2rem;
   font-family: "Noto Sans Telugu", sans-serif;
 }
@@ -188,7 +188,8 @@
     gap: 1rem;
   }
   .card {
-    width: 140px;
+    width: 160px;
+    height: auto;
     padding: 1rem 0.75rem;
   }
 }
