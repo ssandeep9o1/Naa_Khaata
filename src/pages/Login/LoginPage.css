@@ -55,6 +55,7 @@
   height: 100%;
   flex-grow: 1;
   background-color: transparent;
+  font-size: 15px;
 }
 
 .input:focus {
