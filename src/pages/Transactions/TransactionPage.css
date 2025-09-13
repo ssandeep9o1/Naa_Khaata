@@ -6,6 +6,7 @@
   padding: 20px;
   padding-bottom: 80px; /* Provides space for the floating action button (FAB) at the bottom. */
   padding-top: 20px;
+  margin-top: 30px;
 }
 
 .customer-header-paper {
