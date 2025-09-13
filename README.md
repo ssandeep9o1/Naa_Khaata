@@ -79,22 +79,8 @@ Follow these steps to set up and run the project locally.
     npm run preview
 
 8. 📂 Project Structure
-       Naa_Khaata/
-    │── public/              # Static assets
-    │── src/                 
-    │   ├── components/      # Reusable UI components
-    │   ├── pages/           # Application pages (routed)
-    │   ├── assets/          # Fonts, images, icons
-    │   ├── hooks/           # Custom React hooks
-    │   ├── utils/           # Utility/helper functions
-    │   ├── App.tsx          # Main app component
-    │   ├── main.tsx         # Application entry point
-    │   └── router.tsx       # React Router configuration
-    │
-    │── .eslintrc.js         # ESLint configuration
-    │── tsconfig.json        # TypeScript configuration
-    │── vite.config.ts       # Vite configuration
-    │── package.json         # Project dependencies & scripts
+       <img width="1025" height="548" alt="image" src="https://github.com/user-attachments/assets/75dca842-dfff-4209-99c2-87fca9fc1fae" />
+
 
 9. 📖 Usage
 
