@@ -4,6 +4,7 @@
   width: 100%;
   background: var(--background, #f7f8fa);
   min-height: 100vh;
+  margin-top: 50px;
 }
 
 .analytics-title {

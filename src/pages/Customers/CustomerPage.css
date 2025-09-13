@@ -1,7 +1,8 @@
 .customer-page-container {
   padding: 24px;
   max-width: 1000px;
-  margin-inline: auto; /* Modern centering */
+  margin-inline: auto;
+  margin-top: 50px;
 }
 
 .controls-bar {
