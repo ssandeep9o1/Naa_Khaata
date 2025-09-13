@@ -43,7 +43,7 @@ const AppLayout = () => {
       </div>
       
       {/* A container for the page content itself */}
-      <div style={{ padding: '20px', width: '100%' }}>
+      <div style={{ padding: '0px', width: '100%' }}>
         
         {/* Outlet renders the matched child route (DashboardPage, ProfilePage, etc.) */}
         <Outlet />
