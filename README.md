@@ -4,7 +4,7 @@
 
 **Naa Khaata** is a modern **React + TypeScript** web application built with **Vite**.  
 It leverages **Material UI (MUI)**, **Framer Motion**, **Recharts**, and **Supabase** to deliver a responsive, animated, and data-driven experience.  
-Think of it as a **digital ledger / account management system** where you can manage records with ease (💡 update this line with your exact project description).
+Think of it as a **digital ledger / account management system** where you can manage records with ease.
 
 ---
 
