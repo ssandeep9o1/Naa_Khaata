@@ -1,11 +1,8 @@
-/* Container for both title and tagline */
 .title-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* `gap` provides clean spacing between title and tagline */
   gap: 1rem;
-  /* `padding` creates the large space at the top and a smaller gap below */
   padding: 6rem 0 4rem 0;
 }
 
@@ -89,7 +86,6 @@
   font-size: 2.0rem;
   font-weight: 600;
   color: var(--text);
-  /* Consistent margins for section titles */
   margin-top: 3rem;
   margin-bottom: 2rem;
   font-family: "Noto Sans Telugu", sans-serif;
@@ -99,7 +95,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* The `gap` property creates perfect, even spacing between all cards */
   gap: 2rem;
   padding: 1rem;
   max-width: 1200px;
@@ -162,6 +157,7 @@
 
 /* Responsive adjustments for smaller screens */
 @media (max-width: 600px) {
+  
   .main-title {
     font-size: 5rem;
   }
@@ -180,5 +176,19 @@
     width: 120px;
     height: 100px;
     padding: 0.5rem 0.75rem;
+  }
+
+  .statt-label {
+    font-size: 0.75rem;
+  }
+  .statt-value {
+    font-size: 1.5rem;
+  }
+  .customer-cards-container {
+    gap: 1rem;
+  }
+  .card {
+    width: 140px;
+    padding: 1rem 0.75rem;
   }
 }

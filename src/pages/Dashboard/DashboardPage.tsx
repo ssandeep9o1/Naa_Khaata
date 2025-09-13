@@ -5,7 +5,6 @@ import { useAuth } from '../../context/AuthContext';
 import { CircularProgress, Box, Avatar, Chip, Typography, Alert } from '@mui/material';
 import './DashboardPage.css';
 
-// Interfaces remain the same
 interface Customer {
   id: string;
   name: string;
@@ -23,14 +22,14 @@ const DashboardPage: React.FC = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null); // NEW: Error state
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       if (!user) return;
       setLoading(true);
-      setError(null); // Reset error on new fetch
+      setError(null);
 
       try {
         const today = new Date();
@@ -60,7 +59,7 @@ const DashboardPage: React.FC = () => {
 
       } catch (err: any) {
         console.error("Error fetching dashboard data:", err);
-        setError("Failed to load dashboard data. Please try again later."); // NEW: Set a user-friendly error message
+        setError("Failed to load dashboard data. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -68,7 +67,6 @@ const DashboardPage: React.FC = () => {
     fetchDashboardData();
   }, [user]);
 
-  // useMemo hooks remain the same
   const summaryStats = useMemo(() => {
     const totalDue = customers.reduce((sum, c) => sum + (c.due_amount || 0), 0);
     const todaysCollection = transactions.reduce((sum, t) => sum + (t.amount_paid || 0), 0);
@@ -84,7 +82,7 @@ const DashboardPage: React.FC = () => {
       .sort((a, b) => b.due_amount - a.due_amount)
   }, [customers]);
 
-  // Loading state remains the same
+
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
@@ -93,7 +91,6 @@ const DashboardPage: React.FC = () => {
     );
   }
 
-  // NEW: Display error message if something went wrong
   if (error) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh', padding: '2rem' }}>
@@ -103,37 +100,34 @@ const DashboardPage: React.FC = () => {
   }
 
   return (
+    
     <div>
       <div className="title-container">
         <h1 className="main-title">నా ఖాతా</h1>
         <p className="tagline">సులభమైన ఖాతా నిర్వహణ</p>
       </div>
 
-      {/* New container to hold the individual cards */}
-<div className="summary-container">
-  {/* Card 1: Total Customers */}
-  <div className="statt-card">
-    <span className="stat-label">Total Customers</span>
-    <span className="stat-value">{summaryStats.totalCustomers}</span>
-  </div>
+      
+      <div className="summary-container">
+        <div className="statt-card">
+          <span className="stat-label">Total Customers</span>
+          <span className="stat-value">{summaryStats.totalCustomers}</span>
+      </div>
 
-  {/* Card 2: Total Due */}
-  <div className="statt-card">
-    <span className="stat-label">Total Due</span>
-    <span className="stat-value">₹{summaryStats.totalDue}</span>
-  </div>
+      <div className="statt-card">
+        <span className="stat-label">Total Due</span>
+        <span className="stat-value">₹{summaryStats.totalDue}</span>
+      </div>
 
-  {/* Card 3: Today's Collection */}
-  <div className="statt-card">
-    <span className="stat-label">Today's Collection</span>
-    <span className="stat-value">₹{summaryStats.todaysCollection}</span>
-  </div>
-</div>
+      <div className="statt-card">
+        <span className="stat-label">Today's Collection</span>
+        <span className="stat-value">₹{summaryStats.todaysCollection}</span>
+      </div>
+    </div>
 
       <div className="top-customers-section">
         <h2 className="section-title">Customers</h2>
         <div className="customer-cards-container">
-          {/* NEW: Handle the empty state when there are no customers */}
           {allDueCustomers.length > 0 ? (
             allDueCustomers.map((customer) => (
               <div
@@ -150,7 +144,7 @@ const DashboardPage: React.FC = () => {
                 <p className="customer-info">{customer.phone}</p>
                 <Chip
                   label={`Due: ₹${customer.due_amount.toFixed(2)}`}
-                  color="error" // Correct semantic color
+                  color="error" 
                   sx={{ fontWeight: 700, fontSize: 16, my: 1 }}
                 />
               </div>
