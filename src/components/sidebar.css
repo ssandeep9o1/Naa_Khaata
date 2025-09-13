@@ -1,34 +1,33 @@
 /* --- Main Drawer Style --- */
-/* Targets the paper element inside the MUI Drawer */
 .MuiDrawer-paper {
-  border-right: none !important; /* Remove the border for a cleaner, floating look */
+  border-right: none !important;  
   box-shadow: 0 0 40px rgba(0,0,0,1);
-  background-color: #000; /* Add a soft shadow for depth */
+  background-color: #000;  
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
 /* --- List Item Styling --- */
 .MuiList-root {
-  padding: 0px !important; /* Remove default padding */
-  margin: 0px !important; /* Remove default margin */
-  width: 110%; /* Ensure full width */
-  background-color: transparent !important; /* Transparent background for the list */
+  padding: 0px !important;  
+  margin: 0px !important; 
+  width: 110%; 
+  background-color: transparent !important;  
 }
 .MuiListItem-root {
-  padding: 4px 16px !important; /* Tweak padding for the items */
+  padding: 4px 16px !important;  
 }
 
 .MuiListItemButton-root {
-  background-color: #39393a !important; /* Dark background for list items */
-  color: #ffff !important; /* White text for contrast */
-  font-family: 'Roboto', sans-serif !important; /* Use Roboto font */
+  background-color: #39393a !important;  
+  color: #ffff !important;  
+  font-family: 'Roboto', sans-serif !important; 
   font-weight: 500 !important;
   font-size: 0.9rem !important;
-  padding: 8px 18px !important; /* Adjust padding for better spacing */
-  margin: 4px 0 !important; /* Add margin for spacing between items */
-  border: none !important; /* Remove default border */
-  box-shadow: none !important; /* Remove default shadow */
+  padding: 8px 18px !important; 
+  margin: 4px 0 !important;  
+  border: none !important;  
+  box-shadow: none !important;  
   border-radius: 14px !important;
   transition: background-color 0.2s ease-in-out !important;
 }
@@ -41,21 +40,21 @@
 
 /* Style for the active menu item */
 .MuiListItemButton-root.active {
-  background-color: #ffffff !important; /* Highlight active item with a different color */
-  color: #000000 !important; /* Ensure text is readable on the new background */
+  background-color: #ffffff !important;  
+  color: #000000 !important; 
 }
 
 .MuiListItemButton-root.active .MuiListItemIcon-root,
 .MuiListItemButton-root.active .MuiListItemText-primary {
-  color: #000 !important; /* Make sure icon and text color match the active state */
+  color: #000 !important;  
 }
 
 /* Icon styling */
 .MuiListItemIcon-root {
-  min-width: 40px !important; /* Adjust icon spacing */
+  min-width: 40px !important;  
   color: #ffff !important;
-  opacity: 0.8 !important; /* Slightly faded icons */
-  transition: color 0.2s ease-in-out !important; /* Smooth color transition */
+  opacity: 0.8 !important;  
+  transition: color 0.2s ease-in-out !important;  
 }
 
 /* Text styling */
@@ -63,13 +62,13 @@
   font-weight: 500 !important;
   font-family: 'Roboto', sans-serif;
   font-size: 0.9rem !important;
-  transition: color 0.2s ease-in-out !important; /* Smooth color transition */
+  transition: color 0.2s ease-in-out !important;  
 }
 
 /* --- Custom Scrollbar --- */
 .MuiDrawer-paper::-webkit-scrollbar {
   width: 2px;
-  display: none; /* Hide the vertical scrollbar but keep it scrollable */
+  display: none;  
 }
 .MuiDrawer-paper::-webkit-scrollbar-track {
   background: transparent;
@@ -131,7 +130,7 @@
   font-weight: 600;
   transition-duration: 0.3s;
 }
-/* hover effect on button width */
+ 
 .Btn:hover {
   background-color: black;
   width: 130px;
@@ -149,14 +148,13 @@
   fill: white;
 }
 
-/* hover effect button's text */
 .Btn:hover .text {
   opacity: 1;
   width: 70%;
   transition-duration: 0.4s;
   padding-right: 10px;
 }
-/* button click effect*/
+ 
 .Btn:active {
   transform: translate(2px, 2px);
 }
@@ -210,4 +208,56 @@
 }
 .setting-btn:hover .bar2::before {
   transform: translateX(-4px);
+}
+
+@media (max-width: 600px) {
+  .MuiDrawer-paper {
+    width: 220px !important; 
+  }
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 130px;  
+  height: 40px;
+  border: none;
+  border-radius: 40px;  
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(0, 0, 0);
+}
+
+.sign {
+  width: 15%;  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 15px;  
+}
+
+.sign svg {
+  width: 15px;
+}
+
+.sign svg path {
+  fill: rgb(255, 255, 255);
+}
+
+.text {
+  position: absolute;
+  right: 0%;
+  width: 70%;  
+  opacity: 1;  
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  padding-right: 10px;  
+}
+
+.Btn:active {
+  transform: translate(2px, 2px);
+}
+  
 }

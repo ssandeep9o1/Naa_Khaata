@@ -53,7 +53,7 @@ const sidebar: React.FC<sidebarProps> = ({ open, onClose, onMouseEnter, onMouseL
       anchor="left"
       open={open}
       onClose={onClose}
-      transitionDuration={{ enter: 400, exit: 100 }}
+      transitionDuration={{ enter: 400, exit: 250 }}
       ModalProps={{ hideBackdrop: true }}
       PaperProps={{
         sx: {
