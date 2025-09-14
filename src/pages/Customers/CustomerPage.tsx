@@ -184,11 +184,10 @@ const CustomerPage: React.FC = () => {
   return (
     <Container maxWidth="md" className="customer-page-container">
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 700, mb: 5 }}>
-        Customer Management
+        Customers
       </Typography>
        
-      <Paper 
-        elevation={0}
+      <Paper
         sx={{ 
           p: '8px 16px',
           mb: 3,

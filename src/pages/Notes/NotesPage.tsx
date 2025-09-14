@@ -129,7 +129,7 @@ const NotesPage: React.FC = () => {
         <input
           type="text"
           className="note-input"
-          placeholder="Type a new note..."
+          placeholder="Add a new note..."
           value={newNoteInput}
           onChange={(e) => setNewNoteInput(e.target.value)}
           required

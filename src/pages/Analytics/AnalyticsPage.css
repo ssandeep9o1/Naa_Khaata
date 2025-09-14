@@ -1,17 +1,16 @@
-/* src/pages/Analytics/AnalyticsPage.css */
 .analytics-page-container {
   padding: 32px 8vw 32px 8vw;
   width: 100%;
-  background: var(--background, #f7f8fa);
+  background: #ffffff;
   min-height: 100vh;
   margin-top: 50px;
 }
 
 .analytics-title {
-  font-weight: 800 !important;
+  font-weight: 600 !important;
   letter-spacing: -1px;
   margin-bottom: 32px !important;
-  color: var(--primary, #1a237e);
+  color: var(--primary, #000000);
 }
 
 .summary-grid {
@@ -21,7 +20,7 @@
 .stat-card {
   background: var(--card-background, #fff) !important;
   color: var(--text, #222) !important;
-  padding: 18px 12px 18px 12px;
+  padding: 10px 4px 10px 4px;
   border-radius: 18px !important;
   box-shadow: 0 4px 18px rgba(60, 72, 88, 0.10) !important;
   display: flex;
@@ -122,19 +121,77 @@
 }
 
 @media (max-width: 600px) {
+   
   .analytics-page-container {
-    padding: 16px 2vw 16px 2vw;
+    padding: 24px 16px;
+    margin-top: 40px;
   }
-  .stat-card, .chart-card, .list-card {
-    padding: 8px 4px 8px 4px;
-    border-radius: 12px;
+
+   
+  .analytics-title {
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px !important;
   }
+
+   
   .summary-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 16px !important;
-    margin-bottom: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;  
+    margin-bottom: 24px;
   }
-  .chart-title, .list-title {
-    padding-left: 8px;
+
+   
+  .stat-card {
+    padding: 16px 8px;
+    border-radius: 14px !important;
+  }
+
+   
+  .stat-card:hover,
+  .chart-card:hover,
+  .list-card:hover {
+    transform: none;  
+  }
+
+  .stat-icon {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+
+   
+  .chart-card {
+    padding: 24px 16px;
+  }
+
+  .chart-title,
+  .list-title {
+    font-size: 1.15rem;
+  }
+
+  .list-card {
+    padding-top: 16px;
+  }
+
+  .list-title {
+    padding-left: 16px;
+  }
+
+  .debtor-list-item {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .debtor-amount {
+    font-size: 1rem;
   }
 }
