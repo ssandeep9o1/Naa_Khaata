@@ -1,20 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { supabase } from '../../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import './UpdatePasswordPage.css'; // Ensure this CSS is imported
+import './UpdatePasswordPage.css';
 
 const UpdatePasswordPage = () => {
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); // State for the second password field
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
+  // useEffect hook to handle the URL's hash on component mount
+  useEffect(() => {
+    const handleUrlHash = async () => {
+      const hash = window.location.hash;
+      const params = new URLSearchParams(hash.substring(1)); // remove '#'
+      const accessToken = params.get('access_token');
+      const refreshToken = params.get('refresh_token');
+
+      if (accessToken && refreshToken) {
+        // Set the session using the tokens from the URL
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        });
+
+        if (sessionError) {
+          setError('Failed to set session. Please try the reset link again.');
+        } else {
+          // You can navigate or stay on the same page, the session is now active
+          // and the user can update their password.
+          console.log('Session successfully set from URL tokens.');
+        }
+      }
+    };
+
+    handleUrlHash();
+  }, []); // Run only once on component mount
+
   const handleUpdatePassword = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 1. Check if passwords match
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
@@ -24,12 +51,14 @@ const UpdatePasswordPage = () => {
     setError(null);
     setSuccess(false);
 
-    const { error } = await supabase.auth.updateUser({ password: password });
+    // Call updateUser, which will now work because the session is set
+    const { data, error } = await supabase.auth.updateUser({ password: password });
 
     if (error) {
       setError(error.message);
     } else {
       setSuccess(true);
+      // Wait a moment before navigating to give the user time to see the success message
       setTimeout(() => navigate('/login'), 3000);
     }
     setLoading(false);
