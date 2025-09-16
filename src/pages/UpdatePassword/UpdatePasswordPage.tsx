@@ -6,15 +6,21 @@ import './UpdatePasswordPage.css';
 const UpdatePasswordPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true); // Start with loading true
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
 
-  // useEffect hook to handle the URL's hash on component mount
   useEffect(() => {
     const handleUrlHash = async () => {
+      setLoading(true);
       const hash = window.location.hash;
+      if (!hash) {
+        setError("Invalid password reset link. No tokens found.");
+        setLoading(false);
+        return;
+      }
+
       const params = new URLSearchParams(hash.substring(1)); // remove '#'
       const accessToken = params.get('access_token');
       const refreshToken = params.get('refresh_token');
@@ -29,11 +35,12 @@ const UpdatePasswordPage = () => {
         if (sessionError) {
           setError('Failed to set session. Please try the reset link again.');
         } else {
-          // You can navigate or stay on the same page, the session is now active
-          // and the user can update their password.
           console.log('Session successfully set from URL tokens.');
         }
+      } else {
+        setError('Invalid password reset link. Access or refresh token not found.');
       }
+      setLoading(false);
     };
 
     handleUrlHash();
@@ -51,23 +58,31 @@ const UpdatePasswordPage = () => {
     setError(null);
     setSuccess(false);
 
-    // Call updateUser, which will now work because the session is set
+    // This will now work because the session is set from the useEffect hook
     const { data, error } = await supabase.auth.updateUser({ password: password });
 
     if (error) {
       setError(error.message);
     } else {
       setSuccess(true);
-      // Wait a moment before navigating to give the user time to see the success message
       setTimeout(() => navigate('/login'), 3000);
     }
     setLoading(false);
   };
 
+  if (loading) {
+    return (
+      <div className="login-box">
+        <h2>Loading...</h2>
+        <p>Please wait while we verify your password reset link.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="login-box">
       <h2>Choose a New Password</h2>
-
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
       {success ? (
         <p style={{ color: 'lightgreen', textAlign: 'center' }}>
           Your password has been updated successfully! Redirecting to login...
@@ -94,8 +109,6 @@ const UpdatePasswordPage = () => {
             />
             <label>Confirm Password</label>
           </div>
-          
-          {error && <p style={{ color: 'red', textAlign: 'center' }}>{error}</p>}
           
           <div className="button-center-wrapper">
             <button type="submit" disabled={loading}>
