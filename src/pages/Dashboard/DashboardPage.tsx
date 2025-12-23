@@ -47,6 +47,19 @@ const DashboardPage: React.FC = () => {
   const [form, setForm] = useState({ name: '', phone: '', address: '' });
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
+
+  // --- START: Shop Profile Setup State ---
+  const [showProfileSetup, setShowProfileSetup] = useState(false);
+  const [profileForm, setProfileForm] = useState({
+    shopName: '',
+    ownerName: '',
+    phone: '',
+    address: '',
+    ownerImage: ''
+  });
+  const [profileImageFile, setProfileImageFile] = useState<File | null>(null);
+  const [profileImagePreview, setProfileImagePreview] = useState<string>('');
+  // --- END: Shop Profile Setup State ---
   // --- END: Added state ---
 
   useEffect(() => {
@@ -82,13 +95,54 @@ const DashboardPage: React.FC = () => {
         setLoading(false);
       }
     };
+
+    const checkShopProfile = async () => {
+      if (!user) return;
+
+      try {
+        const { data, error } = await supabase
+          .from('shops')
+          .select('id')
+          .eq('id', user.id)
+          .single();
+
+        if (!data) {
+          // If no shop profile exists, show the setup dialog
+          // Pre-fill with metadata if available
+          const metadata = user.user_metadata || {};
+          setProfileForm(prev => ({
+            ...prev,
+            shopName: metadata.shop_name || '',
+            ownerName: metadata.owner_name || ''
+          }));
+          setShowProfileSetup(true);
+        }
+      } catch (error) {
+        console.error("Error checking shop profile:", error);
+        // Even if there's an error (e.g. no row found which is expected for new users),
+        // we might want to check the error code. But .single() returns error if no rows.
+        // We can assume if we can't find it, we might need to create it.
+        // However, strictly, if error code is 'PGRST116' (Results contain 0 rows), then we show popup.
+        if ((error as any).code === 'PGRST116') {
+          const metadata = user.user_metadata || {};
+          setProfileForm(prev => ({
+            ...prev,
+            shopName: metadata.shop_name || '',
+            ownerName: metadata.owner_name || ''
+          }));
+          setShowProfileSetup(true);
+        }
+      }
+    };
+
     fetchDashboardData();
+    checkShopProfile();
   }, [user]);
 
   // --- START: Added functions for adding a customer ---
   const handleAddSubmit = async () => {
     if (!form.name || !user) return;
-    
+
     let imageUrl: string | null = null;
 
     if (imageFile) {
@@ -101,16 +155,16 @@ const DashboardPage: React.FC = () => {
         alert(`Error uploading image: ${uploadError.message}`);
         return;
       }
-      
+
       const { data: urlData } = supabase.storage
         .from('customer-images')
         .getPublicUrl(uploadData.path);
-      
+
       imageUrl = urlData.publicUrl;
     }
 
-    const newCustomer = { 
-      name: form.name, 
+    const newCustomer = {
+      name: form.name,
       phone: form.phone,
       address: form.address,
       shop_id: user.id,
@@ -133,7 +187,7 @@ const DashboardPage: React.FC = () => {
       handleCloseDialog();
     }
   };
-  
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -147,6 +201,61 @@ const DashboardPage: React.FC = () => {
     setForm({ name: '', phone: '', address: '' });
     setImageFile(null);
     setImagePreview('');
+  };
+
+  const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setProfileImageFile(file);
+      setProfileImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleProfileSubmit = async () => {
+    if (!user) return;
+    if (!profileForm.shopName || !profileForm.ownerName) {
+      alert("Shop Name and Owner Name are required.");
+      return;
+    }
+
+    try {
+      let imageUrl = null;
+
+      if (profileImageFile) {
+        const fileName = `avatars/${user.id}/${Date.now()}_${profileImageFile.name}`;
+        const { error: uploadError, data: uploadData } = await supabase.storage
+          .from('Shop_owner_image')
+          .upload(fileName, profileImageFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: urlData } = supabase.storage
+          .from('Shop_owner_image')
+          .getPublicUrl(fileName);
+
+        imageUrl = urlData.publicUrl;
+      }
+
+      const { error } = await supabase
+        .from('shops')
+        .upsert({
+          id: user.id,
+          shop_name: profileForm.shopName,
+          owner_name: profileForm.ownerName,
+          phone_number: profileForm.phone,
+          shop_address: profileForm.address,
+          owner_image: imageUrl
+        });
+
+      if (error) throw error;
+
+      // Success
+      setShowProfileSetup(false);
+      // Optionally show success message or toast
+    } catch (error: any) {
+      console.error("Error creating shop profile:", error);
+      alert(`Failed to create profile: ${error.message}`);
+    }
   };
   // --- END: Added functions ---
 
@@ -163,8 +272,8 @@ const DashboardPage: React.FC = () => {
   // --- MODIFIED: Added search filter to useMemo hook ---
   const filteredCustomers = useMemo(() => {
     return customers
-      .filter(c => 
-        c.name.toLowerCase().includes(search.toLowerCase()) || 
+      .filter(c =>
+        c.name.toLowerCase().includes(search.toLowerCase()) ||
         (c.phone && c.phone.includes(search))
       )
       .sort((a, b) => b.due_amount - a.due_amount)
@@ -188,7 +297,7 @@ const DashboardPage: React.FC = () => {
   }
 
   return (
-    
+
     <div>
       <div className="title-container">
         <h1 className="main-title">నా ఖాతా</h1>
@@ -212,46 +321,47 @@ const DashboardPage: React.FC = () => {
       </div>
 
       <Box sx={{
-                display: 'flex',
-                flexDirection: 'column', // Stacks items vertically
-                alignItems: 'center',     // Centers items horizontally
-                gap: 2,                   // Creates space between the button and search bar
-                mb: 4,                    // Margin below the search bar
-              }}
-            >
+        display: 'flex',
+        flexDirection: 'column', // Stacks items vertically
+        alignItems: 'center',     // Centers items horizontally
+        gap: 2,                   // Creates space between the button and search bar
+        mb: 4,                    // Margin below the search bar
+      }}
+      >
         {/*  "Add Customer" button */}
-        <Button 
-          variant="contained" 
+        <Button
+          variant="contained"
           onClick={() => setAddDialogOpen(true)}
-          sx={{ fontWeight: 'bold', backgroundColor: '#333',  borderRadius: '10px', height: '50px', width: '150px', '&:hover': { backgroundColor: '#555',},
+          sx={{
+            fontWeight: 'bold', backgroundColor: '#333', borderRadius: '10px', height: '50px', width: '150px', '&:hover': { backgroundColor: '#555', },
           }}>
           Add Customer
         </Button>
         {/* Search bar */}
-        
-          <TextField
-            placeholder="Search by customer name..."
-            variant="outlined"
-            value={search} 
-            onChange={(e) => setSearch(e.target.value)}
-            sx={{
+
+        <TextField
+          placeholder="Search by customer name..."
+          variant="outlined"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          sx={{
             width: { xs: '80%', sm: '300px', md: '400px' },
             marginBottom: 3,
-              '& .MuiOutlinedInput-root': {
+            '& .MuiOutlinedInput-root': {
               borderRadius: '12px',
               backgroundColor: '#fff',
               boxShadow: '0 2px 8px rgba(0,0,0,0.07)'
-          }
-        }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon color="action" />
-            </InputAdornment>
-          ),
-        }}
-      />
- 
+            }
+          }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon color="action" />
+              </InputAdornment>
+            ),
+          }}
+        />
+
       </Box>
 
       <div className="top-customers-section">
@@ -275,14 +385,14 @@ const DashboardPage: React.FC = () => {
                 <p className="customer-info">{customer.phone}</p>
                 <Chip
                   label={`Due: ₹${customer.due_amount.toFixed(0)}`}
-                  color="error" 
+                  color="error"
                   sx={{ fontWeight: 700, fontSize: 16, my: 1 }}
                 />
               </div>
             ))
           ) : (
             <Typography variant="body1" sx={{ color: 'text.secondary', mt: 4 }}>
-              No customers found. Try clearing your search or add a new customer!
+              No customers.Add a new customer!
             </Typography>
           )}
         </div>
@@ -354,6 +464,103 @@ const DashboardPage: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* --- Shop Profile Setup Dialog --- */}
+      <Dialog
+        open={showProfileSetup}
+        // Disable closing by clicking outside or escape key to force setup? 
+        // Or generic onClose that warns? For now, let's allow closing but it might re-appear.
+        // Better to force it for "Onboarding".
+        disableEscapeKeyDown={true}
+        fullWidth
+        maxWidth="sm"
+        PaperProps={{
+          sx: {
+            borderRadius: '20px',
+            boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+          }
+        }}
+      >
+        <DialogTitle sx={{ textAlign: 'center', fontWeight: 700, fontSize: '1.5rem', pb: 1 }}>
+          Setup Shop Profile
+        </DialogTitle>
+        <DialogContent sx={{ p: 3 }}>
+          <Typography variant="body2" sx={{ textAlign: 'center', color: 'text.secondary', mb: 3 }}>
+            Welcome! Please complete your shop profile to get started.
+          </Typography>
+
+          <Box
+            component="label"
+            htmlFor="profile-file-upload"
+            sx={{
+              display: 'flex', flexDirection: 'column', alignItems: 'center',
+              gap: 1, p: 2, mb: 3, border: '2px dashed #dcdcdc',
+              borderRadius: '15px', cursor: 'pointer', textAlign: 'center',
+              transition: 'border-color 0.2s, background-color 0.2s',
+              '&:hover': { borderColor: '#999', backgroundColor: '#fafafa' },
+              width: '120px', margin: '0 auto 2rem auto'
+            }}
+          >
+            <Avatar src={profileImagePreview} sx={{ width: 80, height: 80 }} />
+            <Typography variant="caption" sx={{ color: '#888' }}>
+              Add Photo
+            </Typography>
+            <input id="profile-file-upload" type="file" accept="image/*" hidden onChange={handleProfileImageChange} />
+          </Box>
+
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <TextField
+              label="Shop Name"
+              value={profileForm.shopName}
+              onChange={(e) => setProfileForm({ ...profileForm, shopName: e.target.value })}
+              fullWidth
+              required
+              variant="outlined"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+            />
+            <TextField
+              label="Owner Name"
+              value={profileForm.ownerName}
+              onChange={(e) => setProfileForm({ ...profileForm, ownerName: e.target.value })}
+              fullWidth
+              required
+              variant="outlined"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+            />
+            <TextField
+              label="Phone Number"
+              value={profileForm.phone}
+              onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
+              fullWidth
+              variant="outlined"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+            />
+            <TextField
+              label="Shop Address"
+              value={profileForm.address}
+              onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })}
+              fullWidth
+              multiline
+              rows={2}
+              variant="outlined"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ p: 3, display: 'flex', justifyContent: 'center' }}>
+          <Button
+            onClick={handleProfileSubmit}
+            variant="contained"
+            fullWidth
+            sx={{
+              fontWeight: 'bold', backgroundColor: '#333',
+              borderRadius: '10px', py: 1.5, '&:hover': { backgroundColor: '#555' }
+            }}>
+            Create Shop Profile
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* --- END: Shop Profile Setup Dialog --- */}
       {/* --- END: Added Floating Action Button and Dialog --- */}
     </div>
   );
