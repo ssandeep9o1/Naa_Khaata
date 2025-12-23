@@ -1,136 +1,286 @@
+:root {
+  --primary-bg: #ffffff;
+  /* Clean white base */
+  --card-bg: #ffffff;
+  /* Cards remain white, but will pop against the pattern or need a border */
+  --text-main: #2d3748;
+  --text-light: #718096;
+  --soft-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  /* Lighter shadow for white-on-white feel */
+  --card-radius: 16px;
+  --input-bg: #f8fafc;
+  --border-color: #e2e8f0;
+}
 
 .transaction-page-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
   padding: 20px;
-  padding-bottom: 80px; /* Provides space for the floating action button (FAB) at the bottom. */
-  padding-top: 20px;
-  margin-top: 30px;
+  padding-bottom: 100px;
+
+  /* Modern Dot Pattern Background */
+  background-color: var(--primary-bg);
+  background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+  background-size: 24px 24px;
+
+  font-family: 'Poppins', sans-serif;
 }
 
+/* --- Profile Header --- */
 .customer-header-paper {
-  padding: 24px;
-  margin-bottom: 24px;
-  border-radius: 12px !important;
-  background-color: #ffffff !important;
-  box-shadow: 0 4px 12px #0000001f !important;
+  padding: 2rem !important;
+  margin-bottom: 2rem;
+  border-radius: var(--card-radius) !important;
+  background-color: var(--card-bg) !important;
+  /* Stronger shadow and border for visibility */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+  border: 1px solid #cbd5e0 !important;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 
-.scrollable-transactions-container {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 2px;
+.customer-name {
+  font-weight: 700;
+  color: var(--text-main);
 }
 
-.transaction-table-container {
-  border-radius: 16px !important;
-  box-shadow: 0 4px 12px #0000001f !important;
-  overflow: hidden;
-  margin-bottom: 24px;
-}
-
-.transaction-table-head {
-  background-color: #c1c1c1 !important;
-  position: sticky; 
-  top: -10px; 
-  z-index: 1; 
-}
-
-.transaction-table-head .MuiTableCell-root {
-  font-weight: 700 !important;
-  color: #000000 !important; 
-}
-
+/* --- WhatsApp Button --- */
 .whatsapp-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px; 
+  gap: 8px;
   background-color: #25D366;
+  /* Standard WhatsApp Green */
   color: #ffffff;
   border: none;
   border-radius: 50px;
-  padding: 10px 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  padding: 10px 24px;
   font-weight: 600;
-  line-height: 1;
   cursor: pointer;
-  transition: all 0.3s ease;
-  outline: none;
+  box-shadow: 0 4px 6px rgba(37, 211, 102, 0.2);
+  transition: all 0.2s ease;
 }
-.whatsapp-button .whatsapp-icon {
+
+.whatsapp-button:hover {
+  background-color: #1ebe57;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-icon {
   width: 20px;
   height: 20px;
 }
-.whatsapp-button:hover {
-  background-color: #1EBE57;
-}
-.whatsapp-button:focus-visible {
-  box-shadow: 0 0 0 3px #1EBE57, 0 0 0 5px #ffffff;
+
+/* --- Transactions Table --- */
+.transaction-table-container {
+  background-color: var(--card-bg) !important;
+  border-radius: var(--card-radius) !important;
+  box-shadow: var(--soft-shadow) !important;
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
-/* --- Responsive Layout for Mobile --- */
+.transaction-table-head {
+  background-color: #f8fafc !important;
+  /* Slight contrast for header */
+  border-bottom: 1px solid #edf2f7;
+}
+
+.transaction-table-head .MuiTableCell-root {
+  font-weight: 800 !important;
+  color: #000000 !important;
+  /* Pure black for maximum contrast */
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  /* Slightly larger */
+  letter-spacing: 0.05em;
+  padding: 16px 24px !important;
+  background-color: #f1f5f9 !important;
+  /* Slightly darker header bg for contrast */
+}
+
+.MuiTableCell-root {
+  color: var(--text-main) !important;
+  border-bottom: 1px solid #edf2f7 !important;
+  padding: 16px 24px !important;
+}
+
+/* --- FAB --- */
+.fab-add-customer {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #1a202c;
+  /* Dark gray/Almost black */
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, background-color 0.2s;
+  z-index: 100;
+}
+
+.fab-add-customer:hover {
+  transform: scale(1.05);
+  background-color: #000;
+}
+
+.fab-add-customer svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* --- Navigation Buttons (Left Side) --- */
+.nav-fab-container {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+
+.nav-fab {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background-color: #ffffff;
+  color: #2d3748;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.nav-fab:hover {
+  background-color: #f7fafc;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-color: #cbd5e0;
+}
+
+.nav-fab:active {
+  transform: translateY(0);
+}
+
+
+/* --- Mobile Responsiveness --- */
 @media (max-width: 600px) {
-
   .transaction-page-container {
-    padding: 10px;
-    padding-bottom: 60px;
+    padding: 12px;
+    padding-bottom: 80px;
   }
 
+  /* Specific Grid Layout for Mobile Profile Card */
   .customer-header-paper {
+    display: flex !important;
+    position: relative;
+    padding: 16px !important;
+    gap: 16px !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+    /* Force row */
+  }
+
+  /* Avatar Wrapper (Box 1) */
+  .customer-header-paper>.MuiBox-root:first-child {
+    display: flex;
     flex-direction: row;
     align-items: center;
     gap: 12px;
-    padding: 12px;
-    width: 95%;
-    margin-top: 30px;
   }
-  
+
+  /* Avatar */
+  .MuiAvatar {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  /* Name & Icons Box */
+  .customer-header-paper>.MuiBox-root:first-child>.MuiBox-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Name and Action Row */
+  .customer-header-paper>.MuiBox-root:first-child>.MuiBox-root>.MuiBox-root:first-child {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .customer-name {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+  }
+
+  /* Hide standard download button if outside (or style specifically if in same row) */
+  /* The download button is .download-pdf-btn now */
+  .download-pdf-btn {
+    position: absolute !important;
+    top: 12px !important;
+    right: 12px !important;
+    background-color: #f7fafc !important;
+    border: 1px solid #e2e8f0;
+    z-index: 10;
+  }
+
+  /* WhatsApp Button */
   .whatsapp-button {
-    width: 80%;
-    justify-content: center;
-  }
-  
-  .transaction-table-container {
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
-    width: 110%;
-    border-radius: 12px !important;
-    box-shadow: 0 4px 12px #0000001f !important;
-    overflow: hidden;
-    margin-bottom: 24px;
+    background-color: #25D366;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    width: auto;
+    margin-top: 4px;
   }
 
-  .transaction-table-container .MuiTableCell-root {
-    padding: 10px 10px;   
-    font-size: 0.9rem;    
-    white-space: nowrap;
+  /* Total Due Box -> Now below Download Button */
+  .customer-header-paper>.MuiBox-root:last-child {
+    position: absolute;
+    top: 50px;
+    /* Pushed down to start below the download button (approx 48px + gap) */
+    right: 16px;
+    text-align: right;
   }
 
-  .scrollable-transactions-container {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 0px;
-    scrollbar-width: none; 
-    -ms-overflow-style: none; 
+  .customer-header-paper>.MuiBox-root:last-child>.MuiTypography-root {
+    font-size: 0.7rem;
+    color: #718096;
+    display: block;
+    margin-bottom: 2px;
   }
-  .scrollable-transactions-container::-webkit-scrollbar {
-    display: none; 
+
+  .customer-header-paper>.MuiBox-root:last-child>.MuiChip-root {
+    background-color: #ed8936 !important;
+    color: white !important;
+    font-weight: 700;
+    height: 28px;
   }
-  .transaction-table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; 
-    -ms-overflow-style: none;
-  }
-  .transaction-table-container::-webkit-scrollbar {
-    display: none;
+
+  /* Reset table padding */
+  .MuiTableCell-root {
+    padding: 12px 10px !important;
   }
 }
