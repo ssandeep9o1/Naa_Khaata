@@ -8,19 +8,19 @@ Think of it as a **digital ledger / account management system** where you can ma
 
 ---
 
-## ✨ Features
+##  Features
 
-- ⚡ Lightning-fast development with **Vite**  
-- 🎨 Beautiful UI with **Material UI** and **Emotion** styling  
-- 📊 Interactive data visualization using **Recharts**  
-- 🎬 Smooth animations powered by **Framer Motion**  
-- 🔑 Authentication & backend integration with **Supabase**  
-- 🌐 Client-side routing with **React Router v7**  
-- 🖋 Custom fonts: **Inter** and **Poppins**  
+-  Lightning-fast development with **Vite**  
+-  Beautiful UI with **Material UI** and **Emotion** styling  
+-  Interactive data visualization using **Recharts**  
+-  Smooth animations powered by **Framer Motion**  
+-  Authentication & backend integration with **Supabase**  
+-  Client-side routing with **React Router v7**  
+-  Custom fonts: **Inter** and **Poppins**  
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Tools / Libraries |
 |-------|-------------------|
@@ -35,7 +35,7 @@ Think of it as a **digital ledger / account management system** where you can ma
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 Follow these steps to set up and run the project locally.
 
